@@ -1,0 +1,39 @@
+doctype html
+html
+    head
+        title The Retweet's Latest
+        link(rel='stylesheet', href='/stylesheets/style.css')
+    body(ng-app='appModule', ng-controller='TweetController')
+        #tweet-container
+            div.tweet(ng-repeat='tweet in tweets', animate-show='animate-show')
+
+                div.tweet-header
+                    img.avatar(ng-src='{{tweet.user.profile_image_url}}')
+                    span.full-name {{tweet.user.name}}
+                    span.screen-name @{{tweet.user.screen_name}}
+                    strong.date {{prettyDate(tweet)}}
+
+                div.tweet-body(ng-switch, on='tweet.entities.media')
+                    div.text-body(ng-switch-when='undefined')
+                        p(ng-bind-html='tweetBody(tweet)')
+                    div.media-body(ng-switch-default)
+                        img(class="media {{mediaOrientation}}" ng-src='{{tweet.entities.media[0].media_url}}')
+                        p(ng-bind-html='tweetBody(tweet)')
+                        //a(href='{{tweet.entities.media[0].media_url}}', target='_blank')
+
+                div.tweet-footer
+                    div.tweet-actions
+                        a.action.reply(href='https://twitter.com/intent/tweet?in_reply_to={{tweet.id}}', target='_blank') Reply
+                        a.action.retweet(href='https://twitter.com/intent/retweet?tweet_id={{tweet.id}}', target='_blank') Retweet
+                        a.action.favorite(href='https://twitter.com/intent/favorite?tweet_id={{tweet.id}}', target='_blank') Favorite
+
+            div(ng-switch, on='tweets.length')
+                div(ng-switch-when='0')
+                    img.fail-whale(src='/images/Fail-Whale.jpeg')
+                    h2 We'll be right back
+
+        strong.pulse {{(pulseCount * interval / 1000)}}
+        script(src='/socket.io/socket.io.js')
+        script(src='/javascripts/angular.min.js')
+        script(src='/javascripts/socket.min.js')
+        script(src='/javascripts/index.js')

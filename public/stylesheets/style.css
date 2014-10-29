@@ -1,0 +1,180 @@
+body {
+    background-color: #3366FF;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+#tweet-container {
+    background-color: #FFF;
+    border: 1px solid #545454;
+    width: 822px;
+    height: 486px;
+    border-radius: 10px;
+    margin: 40px;
+    padding: 40px;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+div.tweet {
+    -webkit-transition: all 0.8s ease;
+    opacity: 0;
+}
+
+div.tweet.faded-show {
+    opacity: 1;
+}
+
+div.tweet-header {
+    margin-bottom: 10px;
+}
+
+img.avatar {
+    display: block;
+    float: left;
+}
+
+span, strong {
+    line-height: 48px;
+    font-size: 36px;
+    color: #545454;
+}
+
+span.full-name {
+    display: block;
+    float: left;
+    margin: 0 20px;
+}
+
+span.screen-name {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+strong.date {
+    font-weight: 200;
+    display: block;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+}
+
+p {
+    color: #111111;
+    clear: both;
+    font-size: 48px;
+    margin: 10px 0;
+}
+
+a {
+    -webkit-transition: all 0.24s ease;
+    color: #3366FF;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: #33FF66;
+}
+
+.text-body {
+
+}
+
+.media-body {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    max-height: 400px;
+}
+
+.media-body img.media {
+    display: inline-block;
+}
+
+img.media.landscape{
+    width: 80%;
+}
+
+img.media.portrait{
+    margin-top: -25%;
+}
+
+img.media.square{
+
+}
+
+.media-body p {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+
+    color: white;
+    font-size: 36px;
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 12%, rgba(0, 0, 0, 1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(12%, rgba(0, 0, 0, 0.6)), color-stop(100%, rgba(0, 0, 0, 1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 12%, rgba(0, 0, 0, 1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 12%, rgba(0, 0, 0, 1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 12%, rgba(0, 0, 0, 1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 12%, rgba(0, 0, 0, 1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#000000', GradientType=0); /* IE6-9 */
+}
+
+.tweet-actions {
+    position: absolute;
+    bottom: 0;
+    left: 175px;
+    padding: 20px 0;
+}
+
+.tweet-actions a.action {
+    display: block;
+    float: left;
+    width: 184px;
+    height: 38px;
+    font-size: 24px;
+    line-height: 38px;
+    text-indent: 55px;
+    text-decoration: none;
+    color: #828282;
+    font-weight: 100;
+    letter-spacing: 1px;
+}
+
+.tweet-actions a.action.reply {
+    background: url(/images/reply.png) no-repeat;
+}
+
+.tweet-actions a.action.retweet {
+    background: url(/images/retweet.png) no-repeat;
+}
+
+.tweet-actions a.action.favorite {
+    background: url(/images/favourite.png) no-repeat;
+}
+
+strong.pulse {
+    color: #fff;
+    font-size: 12px;
+    line-height: normal;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+img.fail-whale {
+    display: block;
+    margin: 34px 34px 0 34px;
+}
+
+h2 {
+    margin-top: 10px;
+    text-align: center;
+}
