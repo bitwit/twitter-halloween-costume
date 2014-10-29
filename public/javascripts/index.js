@@ -14,50 +14,18 @@ angular.module('appModule', ['btford.socket-io'])
     })
 
     .controller('TweetController', function ($scope, $sce, $http, mySocket) {
-        mySocket.on('tweet', function (ev, data) {
-            console.log('event, data', ev, data);
-        });
-
         $scope.tweets = [];
-        $scope.pulses = 1;
-        $scope.pulseCount = $scope.pulses; // do it once right away
-        $scope.interval = 5000; // 5 secs * 9 pulses = 45secs
         $scope.mediaOrientation = 'landscape';
-        $scope.update = function () {
-            $scope.pulseCount++;
-            console.log('update', $scope.pulseCount);
-            if ($scope.pulseCount < $scope.pulses) {
-                $scope.$apply();
-                return; //update every 6th pulse, a.k.a 30
-            }
-            $scope.pulseCount = 0;
-            $http.get('/lastTweet')
-                .then(function (response) {
-                    if ($scope.tweets.length > 0 && response.data.id == $scope.tweets[0].id)
-                        return; //is same tweet
-                    $scope.tweets = [];
-                    var theTweet = response.data;
-                    if (theTweet.retweeted_status !== undefined)
-                        theTweet = theTweet.retweeted_status;
 
-                    console.log('the tweet', theTweet);
+        $http.get('/lastTweet')
+            .then(function (response) {
+                if ($scope.tweets.length > 0 && response.data.id == $scope.tweets[0].id)
+                    return; //is same tweet
+                var theTweet = response.data;
+                setTweet(theTweet);
+            });
 
-                    if (theTweet.entities.media && theTweet.entities.media.length > 0) {
-                        var size = theTweet.entities.media[0].sizes.small;
-                        if (size.h > size.w) {
-                            $scope.mediaOrientation = 'portrait';
-                        } else if (size.w > size.h) {
-                            $scope.mediaOrientation = 'landscape';
-                        } else {
-                            $scope.mediaOrientation = 'square';
-                        }
-                    }
 
-                    $scope.tweets.push(theTweet);
-                });
-        };
-        $scope.update();
-        setInterval($scope.update, $scope.interval);
         $scope.prettyDate = function (tweet) {
             return prettyDate(tweet.created_at);
         };
@@ -71,6 +39,31 @@ angular.module('appModule', ['btford.socket-io'])
                 return F.charAt(0) + '<a target="_blank" href="http://www.twitter.com/#!/search?q=' + F.substring(1) + '">' + F.substring(1) + "</a>";
             });
             return $sce.trustAsHtml(html);
+        };
+
+        mySocket.on('tweet', function (data) {
+            setTweet(data);
+        });
+
+        var setTweet = function(theTweet){
+            $scope.tweets.length = 0;
+            if (theTweet.retweeted_status !== undefined)
+                theTweet = theTweet.retweeted_status;
+
+            console.log('the tweet', theTweet);
+
+            if (theTweet.entities.media && theTweet.entities.media.length > 0) {
+                var size = theTweet.entities.media[0].sizes.small;
+                if (size.h > size.w) {
+                    $scope.mediaOrientation = 'portrait';
+                } else if (size.w > size.h) {
+                    $scope.mediaOrientation = 'landscape';
+                } else {
+                    $scope.mediaOrientation = 'square';
+                }
+            }
+
+            $scope.tweets.push(theTweet);
         };
     });
 

@@ -81,7 +81,7 @@ var start = function (server) {
     io = require('socket.io')(server);
     tickMonitor();
     //Monitor a hashtag
-    var stream = T.stream('statuses/filter', { track: 'halloween' });
+    var stream = T.stream('statuses/filter', { track: 'testerforkyle' });
     stream.on('tweet', function (tweet) {
         addUnfilteredTweet(tweet);
     });
